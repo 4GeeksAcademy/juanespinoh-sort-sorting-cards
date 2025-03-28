@@ -1,5 +1,76 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+*{
+    margin: 0;
+    padding: 0;
+}
 body{
-    background: white;
+    background: green;
+    min-height: 100vh;
+}
+
+#original-container{
+    display: flex;
+    flex-direction: column;
+
+}
+h3{
+   
+    text-align: start;
+}
+#sort-container{
+    display: flex;
+    flex-direction: column;
+
+}
+#input-container{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.cardBody{
+    width: 50px;
+    height: 70px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.cardsContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.upper{
+    width: 100%;
+    text-align: start;
+    padding: 0px 5px;
+    border-radius: 5px 5px 0 0;
+}
+.down{
+    width: 100%;
+    text-align: start;
+    rotate: 180deg;
+    padding: 0px 5px;
+    border-radius: 5px 5px 0 0;
+}
+
+#sortCardsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#errorBox{
+    width: 100px;
+    height: 50px;
+    background-color: red;
+
+    position: absolute;
+    right: 50%;
+    top: 0;
+    display: none;
 }
