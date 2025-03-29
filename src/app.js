@@ -57,13 +57,28 @@ function randomCardArrayCreator(value) {
   return resultArray;
 }
 
-function cardContainerGnerator(arr) {
+function cardContainerGnerator(arr, needsIndex,index) {
+  let arrayOfCards = [];
   let cardContainerDOM = document.createElement("div");
   cardContainerDOM.classList.add("cardsContainer");
+  if(needsIndex){
+    let indexDiv=document.createElement("div")
+    let indexDivPara=document.createElement("p")
+    indexDivPara.innerHTML=index
 
-  let arrayOfCards = [];
+    indexDiv.appendChild(indexDivPara)
+    indexDiv.classList.add("indexBody")
+ 
+  
+   
+    arrayOfCards.push(indexDiv)
+  }
+ 
+  
 
   for (let cardValues of arr) {
+    
+    
     let cardBody = document.createElement("div");
     let upper = document.createElement("div");
     let center = document.createElement("div");
@@ -90,26 +105,28 @@ function cardContainerGnerator(arr) {
   return cardContainerDOM;
 }
 
-function bubbleSort(arr) {
+function selectSort(arr) {
   let logArray=[]
- 
-  let wall = arr.length - 1;
 
-  for (let i = 0; i < wall; wall--) {
-
-    for (let x = 0; x < wall; x++) {
-    
-
-      if (arr[x].value > arr[x + 1].value) {
-        let aux = arr[x]
-        arr[x] = arr[x + 1]
-        arr[x + 1] = aux;
-        logArray=[...logArray,[...arr]]
+  for (let i = 0; i < arr.length - 1; i++) { 
+    let minIndex = i;                        
+                
+    for (let j = i + 1; j < arr.length; j++) {
+   
+      if ( arr[minIndex].value > arr[j].value ) {
+        minIndex = j;                      
       }
     }
-
-   
+        i !== 2
+    if (i !== minIndex) {
+      let temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
+      logArray=[...logArray,[...arr]]
+      // [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
   }
+  
   return logArray
 }
 
@@ -136,7 +153,7 @@ drawButtonDOM.addEventListener("click", () => {
 });
 
 sortButtonDOM.addEventListener("click",()=>{
-  let sortedArrayLog=bubbleSort(cardsArray)
+  let sortedArrayLog=selectSort(cardsArray,false)
   if(sortedArrayLog.length===0){
     errorBox.innerHTML=""
     errorBox.style.display="block"
@@ -145,10 +162,17 @@ sortButtonDOM.addEventListener("click",()=>{
   }
    errorBox.style.display="none"
 
+   console.log(sortedArrayLog)
+   console.log(cardsArray)
+
+
   let arrays=[] 
-  for(let row of sortedArrayLog){
-    arrays.push(cardContainerGnerator(row))
+  for(let i=0;i<sortedArrayLog.length ;i++){
+    arrays.push(cardContainerGnerator(sortedArrayLog[i],true,i))
+
   }
+  // for(let row of sortedArrayLog){
+  // }
   sortCardsContainerDOM.append(...arrays)
 
 })
